@@ -1,0 +1,11 @@
+rootProject.name = "hellonative"
+include ':app'
+
+include ':hello_module'
+project(':hello_module').projectDir = new File('../hello_module')
+setBinding(new Binding([gradle: this]))
+evaluate(new File(
+        settingsDir,
+        '../hello_module/.android/include_flutter.groovy'
+))
+
