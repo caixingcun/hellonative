@@ -50,10 +50,10 @@ class FlutterViewActivity :AppCompatActivity() {
         flutterEngine.navigationChannel.setInitialRoute("/second")
         flutterEngine.dartExecutor.executeDartEntrypoint(
             DartExecutor.DartEntrypoint.createDefault()
-        );
+        )
         flutterView.attachToFlutterEngine(flutterEngine)
 
-        MethodChannel(flutterEngine.dartExecutor.binaryMessenger,"flutter_channel").setMethodCallHandler(object:MethodChannel.MethodCallHandler{
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger,"flutter_to_native").setMethodCallHandler(object:MethodChannel.MethodCallHandler{
             override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
                    when(call.method){
                        "getPlatformVersion" -> {

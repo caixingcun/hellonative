@@ -18,7 +18,7 @@ class MainActivity : FlutterActivity() {
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         Log.d("tag","configureFlutterEngine")
-        var channel =   MethodChannel(flutterEngine.dartExecutor.binaryMessenger,"flutter_channel")
+        var channel =   MethodChannel(flutterEngine.dartExecutor.binaryMessenger,"flutter_to_native")
         channel.setMethodCallHandler { call, result ->
             // flutter 调原生
             if(call.method == "getPlatformVersion"){
@@ -28,10 +28,13 @@ class MainActivity : FlutterActivity() {
                 nativeChannel.invokeMethod("flutter_print","i am native")
             }else if(call.method == "jump2FlutterViewPage"){
                 startActivity(Intent(this,FlutterViewActivity::class.java))
+            }else if(call.method == "jump2FlutterFragmentActivity"){
+                startActivity(Intent(this,MyContainFlutterFragmentActivity::class.java))
             }else {
                 result.notImplemented()
             }
         }
+
         nativeChannel = MethodChannel(flutterEngine.dartExecutor.binaryMessenger,"native_channel")
     }
 
