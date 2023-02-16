@@ -9,6 +9,7 @@ import io.flutter.plugin.common.MethodChannel
 
 class MainActivity : FlutterActivity() {
 
+    lateinit var nativeChannel: MethodChannel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -22,10 +23,13 @@ class MainActivity : FlutterActivity() {
             if(call.method == "getPlatformVersion"){
                 // 原生回复flutter
                 result.success("android ${Build.VERSION.SDK_INT}")
+                // 原生主动回复 flutter
+                nativeChannel.invokeMethod("flutter_print","i am native")
             }else {
                 result.notImplemented()
             }
         }
+        nativeChannel = MethodChannel(flutterEngine.dartExecutor.binaryMessenger,"native_channel")
     }
 
 }
