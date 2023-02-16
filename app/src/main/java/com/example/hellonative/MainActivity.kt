@@ -1,5 +1,6 @@
 package com.example.hellonative
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -25,6 +26,8 @@ class MainActivity : FlutterActivity() {
                 result.success("android ${Build.VERSION.SDK_INT}")
                 // 原生主动回复 flutter
                 nativeChannel.invokeMethod("flutter_print","i am native")
+            }else if(call.method == "jump2FlutterViewPage"){
+                startActivity(Intent(this,FlutterViewActivity::class.java))
             }else {
                 result.notImplemented()
             }
