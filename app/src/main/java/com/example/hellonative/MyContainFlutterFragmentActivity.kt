@@ -41,6 +41,9 @@ class MyContainFlutterFragmentActivity :AppCompatActivity() {
                 }
             }
         })
+        engine?.dartExecutor?.binaryMessenger?.let { binaryMessager->
+            engine?.platformViewsController.registry.registerViewFactory("android_native_view",NativeViewFactory(binaryMessager))
+        }
 
         nativeChannel = MethodChannel(engine?.dartExecutor?.binaryMessenger,"native_to_flutter")
 
